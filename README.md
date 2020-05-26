@@ -1,7 +1,7 @@
 # TPS_Irrigazione
 Sistema Irrigazione con 5 aree programmabili e gestione attivazione tramite sensori di umidità industriali e sistema RTC DS1307 (Timer I2C).
 
-Il progetto si basa su un arduino Uno R3 incluso in un PCB custom (dimensioni nella sezione del circuito stampato), il tutto montato in un case stampato in 3d su una barra DIN (barra 35mm per montaggio PLC).
+Il progetto si basa su un arduino Uno R3 incluso in un PCB custom (dimensioni nel file .brd), il tutto montato in un case stampato in 3d su una barra DIN (barra 35mm per montaggio PLC).
 
 L’intero sistema è inserito in una scatola di distribuzione impermeabile per permettere all’utente di installare il sistema di controllo all’esterno.
 
