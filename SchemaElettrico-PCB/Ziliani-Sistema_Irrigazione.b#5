@@ -3,7 +3,7 @@
 <eagle version="9.6.1">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="50" unitdist="mil" unit="mil" style="dots" multiple="1" display="yes" altdistance="50" altunitdist="mil" altunit="mil"/>
@@ -858,15 +858,15 @@ Comments, suggestions and bug reports please send to: &lt;b&gt;&lt;a href="mailt
 <packages>
 <package name="ARDUINOR3">
 <description>The new Arduino R3 'classic' adds duplicate I2C pins and an IORef pin (and an unused pin</description>
-<wire x1="0" y1="0" x2="66.04" y2="0" width="0" layer="21"/>
-<wire x1="66.04" y1="0" x2="66.04" y2="2.54" width="0" layer="21"/>
-<wire x1="66.04" y1="2.54" x2="68.58" y2="5.08" width="0" layer="21"/>
-<wire x1="68.58" y1="5.08" x2="68.58" y2="37.846" width="0" layer="21"/>
-<wire x1="68.58" y1="37.846" x2="66.04" y2="40.386" width="0" layer="21"/>
-<wire x1="66.04" y1="40.386" x2="66.04" y2="51.816" width="0" layer="21"/>
-<wire x1="66.04" y1="51.816" x2="64.516" y2="53.34" width="0" layer="21"/>
-<wire x1="64.516" y1="53.34" x2="0" y2="53.34" width="0" layer="21"/>
-<wire x1="0" y1="53.34" x2="0" y2="0" width="0" layer="21"/>
+<wire x1="0" y1="0" x2="66.04" y2="0" width="0" layer="19"/>
+<wire x1="66.04" y1="0" x2="66.04" y2="2.54" width="0" layer="19"/>
+<wire x1="66.04" y1="2.54" x2="68.58" y2="5.08" width="0" layer="19"/>
+<wire x1="68.58" y1="5.08" x2="68.58" y2="37.846" width="0" layer="19"/>
+<wire x1="68.58" y1="37.846" x2="66.04" y2="40.386" width="0" layer="19"/>
+<wire x1="66.04" y1="40.386" x2="66.04" y2="51.816" width="0" layer="19"/>
+<wire x1="66.04" y1="51.816" x2="64.516" y2="53.34" width="0" layer="19"/>
+<wire x1="64.516" y1="53.34" x2="0" y2="53.34" width="0" layer="19"/>
+<wire x1="0" y1="53.34" x2="0" y2="0" width="0" layer="19"/>
 <circle x="15.24" y="50.8" radius="1.796" width="0.127" layer="51"/>
 <circle x="13.97" y="2.54" radius="1.796" width="0.127" layer="51"/>
 <circle x="66.04" y="35.56" radius="1.796" width="0.127" layer="51"/>
@@ -1274,8 +1274,9 @@ design rules under a new name.</description>
 <wire x1="86.36" y1="114.2539" x2="86.3811" y2="114.275" width="0.8128" layer="16"/>
 <wire x1="96.42" y1="59.67" x2="68.56" y2="59.67" width="0.8128" layer="16"/>
 <wire x1="68.56" y1="59.67" x2="66.04" y2="57.15" width="0.8128" layer="16"/>
-<wire x1="66.04" y1="57.15" x2="62.484" y2="53.594" width="0.8128" layer="16"/>
-<wire x1="62.484" y1="53.594" x2="62.484" y2="52.07" width="0.8128" layer="16"/>
+<wire x1="66.04" y1="57.15" x2="63.5" y2="54.61" width="0.8128" layer="16"/>
+<wire x1="63.5" y1="54.61" x2="63.5" y2="53.086" width="0.8128" layer="16"/>
+<wire x1="63.5" y1="53.086" x2="62.484" y2="52.07" width="0.8128" layer="16"/>
 <wire x1="17.78" y1="57.15" x2="10.16" y2="49.53" width="0.8128" layer="16"/>
 <wire x1="10.16" y1="48.26" x2="10.16" y2="49.53" width="0.8128" layer="16"/>
 <wire x1="17.78" y1="57.15" x2="66.04" y2="57.15" width="0.8128" layer="16"/>
@@ -1358,8 +1359,12 @@ design rules under a new name.</description>
 <contactref element="U$2" pad="J1.1"/>
 <contactref element="U$1" pad="J1.3"/>
 <contactref element="DISP" pad="1"/>
-<wire x1="36.83" y1="44.45" x2="35.56" y2="43.18" width="0.8128" layer="16"/>
-<wire x1="2.54" y1="48.26" x2="7.62" y2="43.18" width="0.8128" layer="16"/>
+<wire x1="15.24" y1="48.26" x2="15.24" y2="44.45" width="0.8128" layer="16"/>
+<wire x1="15.24" y1="44.45" x2="16.51" y2="43.18" width="0.8128" layer="16"/>
+<wire x1="35.56" y1="43.18" x2="16.51" y2="43.18" width="0.8128" layer="16"/>
+<wire x1="35.56" y1="43.18" x2="36.83" y2="44.45" width="0.8128" layer="16"/>
+<wire x1="16.51" y1="43.18" x2="7.62" y2="43.18" width="0.8128" layer="16"/>
+<wire x1="7.62" y1="43.18" x2="2.54" y2="48.26" width="0.8128" layer="16"/>
 <wire x1="2.54" y1="48.26" x2="2.54" y2="95.25" width="0.8128" layer="16"/>
 <wire x1="5.08" y1="97.79" x2="2.54" y2="95.25" width="0.8128" layer="16"/>
 <via x="53.34" y="104.14" extent="1-16" drill="0.9"/>
@@ -1376,9 +1381,6 @@ design rules under a new name.</description>
 <wire x1="6.35" y1="101.6" x2="6.35" y2="97.79" width="0.8128" layer="16"/>
 <wire x1="6.35" y1="97.79" x2="5.08" y2="97.79" width="0.8128" layer="16"/>
 <wire x1="50.8" y1="101.6" x2="50.8" y2="100.33" width="0.8128" layer="16"/>
-<wire x1="35.56" y1="43.18" x2="20.32" y2="43.18" width="0.8128" layer="16"/>
-<wire x1="20.32" y1="43.18" x2="15.24" y2="48.26" width="0.8128" layer="16"/>
-<wire x1="7.62" y1="43.18" x2="20.32" y2="43.18" width="0.8128" layer="16"/>
 </signal>
 <signal name="N$22">
 <contactref element="U1" pad="SDA"/>

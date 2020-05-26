@@ -1,0 +1,698 @@
+using System;
+
+public class MyProgram
+{
+    public static void Main(string[] args)
+    {
+        int librerieUsate;
+        int[] pSensori = new int[5];
+        int[] pValvole = new int[5];
+        int sVCC;
+        int pTastoSET, uP, dOWN, sW;
+        string tGiorno;
+        double tORA;
+        double[] tAreeMINUTI = new double[5];
+        int[] lUN = new int[5];
+        int[] mAR = new int[5];
+        int[] mER = new int[5];
+        int[] gIO = new int[5];
+        int[] vEN = new int[5];
+        int[] sAB = new int[5];
+        int[] dOM = new int[5];
+        Interrupt = DisplayHomepTastoSET;
+        Setup();
+        Loop();
+    }
+    
+    public static void DisplayHome()
+    {
+        int tDisp;
+        tDisp = 0;
+        Console.WriteLine(displayWrite("HOME"));
+        if (millis() - tDisp <= 10000)
+        {
+            if (pTastoSW == 1)
+            {
+                if (pTastoSET == 1)
+                {
+                    SetTimeAreeON();
+                }
+            }
+            if (pTastoSW == 2)
+            {
+                if (pTastoSET == 1)
+                {
+                    SetTimeAree();
+                }
+            }
+            if (pTastoSW == 3)
+            {
+                if (pTastoSET == 1)
+                {
+                    SetTimeDispRTC();
+                }
+            }
+        }
+    }
+    
+    public static void Loop()
+    {
+        tGiorno = giornoRTC();
+        tORA = oraRTC();
+        Console.WriteLine(displayWrite(tORA));
+        if (tGiorno == LUN)
+        {
+            for (i = 0; i <= 5; i++)
+            {
+                if (tORA == LUN[i])
+                {
+                    Console.WriteLine(Pinmode(sVCC, HIGH));
+                    if (pSensori[i] == 1)
+                    {
+                        Console.WriteLine(Pinmode(pValvole[i], HIGH));
+                        Console.WriteLine(displayWrite(A[i]));
+                        AspettaTempo = tAreeMINUTI[i];
+                        Console.WriteLine(Pinmode(pValvole[i], LOW));
+                    }
+                    Console.WriteLine(Pinmode(sVCC, LOW));
+                }
+            }
+        }
+        if (tGiorno == MAR)
+        {
+            for (i = 0; i <= 5; i++)
+            {
+                if (tORA == MAR[i])
+                {
+                    Console.WriteLine(Pinmode(sVCC, HIGH));
+                    if (pSensori[i] == 1)
+                    {
+                        Console.WriteLine(Pinmode(pValvole[i], HIGH));
+                        Console.WriteLine(displayWrite(A[i]));
+                        AspettaTempo = tAreeMINUTI[i];
+                        Console.WriteLine(Pinmode(pValvole[i], LOW));
+                    }
+                    Console.WriteLine(Pinmode(sVCC, LOW));
+                }
+            }
+        }
+        if (tGiorno == MER)
+        {
+            for (i = 0; i <= 5; i++)
+            {
+                if (tORA == MER[i])
+                {
+                    Console.WriteLine(Pinmode(sVCC, HIGH));
+                    if (pSensori[i] == 1)
+                    {
+                        Console.WriteLine(Pinmode(pValvole[i], HIGH));
+                        Console.WriteLine(displayWrite(A[i]));
+                        AspettaTempo = tAreeMINUTI[i];
+                        Console.WriteLine(Pinmode(pValvole[i], LOW));
+                    }
+                    Console.WriteLine(Pinmode(sVCC, LOW));
+                }
+            }
+        }
+        if (tGiorno == GIO)
+        {
+            for (i = 0; i <= 5; i++)
+            {
+                if (tORA == GIO[i])
+                {
+                    Console.WriteLine(Pinmode(sVCC, HIGH));
+                    if (pSensori[i] == 1)
+                    {
+                        Console.WriteLine(Pinmode(pValvole[i], HIGH));
+                        Console.WriteLine(displayWrite(A[i]));
+                        AspettaTempo = tAreeMINUTI[i];
+                        Console.WriteLine(Pinmode(pValvole[i], LOW));
+                    }
+                    Console.WriteLine(Pinmode(sVCC, LOW));
+                }
+            }
+        }
+        if (tGiorno == VEN)
+        {
+            for (i = 0; i <= 5; i++)
+            {
+                if (tORA == VEN[i])
+                {
+                    Console.WriteLine(Pinmode(sVCC, HIGH));
+                    if (pSensori[i] == 1)
+                    {
+                        Console.WriteLine(Pinmode(pValvole[i], HIGH));
+                        Console.WriteLine(displayWrite(A[i]));
+                        AspettaTempo = tAreeMINUTI[i];
+                        Console.WriteLine(Pinmode(pValvole[i], LOW));
+                    }
+                    Console.WriteLine(Pinmode(sVCC, LOW));
+                }
+            }
+        }
+        if (tGiorno == SAB)
+        {
+            for (i = 0; i <= 5; i++)
+            {
+                if (tORA == SAB[i])
+                {
+                    Console.WriteLine(Pinmode(sVCC, HIGH));
+                    if (pSensori[i] == 1)
+                    {
+                        Console.WriteLine(Pinmode(pValvole[i], HIGH));
+                        Console.WriteLine(displayWrite(A[i]));
+                        AspettaTempo = tAreeMINUTI[i];
+                        Console.WriteLine(Pinmode(pValvole[i], LOW));
+                    }
+                    Console.WriteLine(Pinmode(sVCC, LOW));
+                }
+            }
+        }
+        if (tGiorno == DOM)
+        {
+            for (i = 0; i <= 5; i++)
+            {
+                if (tORA == DOM[i])
+                {
+                    Console.WriteLine(Pinmode(sVCC, HIGH));
+                    if (pSensori[i] == 1)
+                    {
+                        Console.WriteLine(Pinmode(pValvole[i], HIGH));
+                        Console.WriteLine(displayWrite(A[i]));
+                        AspettaTempo = tAreeMINUTI[i];
+                        Console.WriteLine(Pinmode(pValvole[i], LOW));
+                    }
+                    Console.WriteLine(Pinmode(sVCC, LOW));
+                }
+            }
+        }
+    }
+    
+    public static void SetTimeAree()
+    {
+        double tInizio;
+        tInizio = 1200;
+        double tTime;
+        tTime = 0;
+        double tAree;
+        if (pTastoSW == 1)
+        {
+            Console.WriteLine(displayWrite("LUN"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    for (i = 0; i <= 5; i++)
+                    {
+                        Console.WriteLine(displayWrite(tInizio));
+                        if (pTastoUP == 1)
+                        {
+                            tTime = tTime + 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (pTastoDOWN == 1)
+                        {
+                            tTime = tTime - 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (tORA > 2400 || tORA <= 0)
+                        {
+                            tORA = 0;
+                            Console.WriteLine(displayWrite("ER 1"));
+                        }
+                        else
+                        {
+                            LUN[i] = tORA;
+                        }
+                    }
+                }
+            }
+        }
+        if (pTastoSW == 2)
+        {
+            Console.WriteLine(displayWrite("MAR"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    for (i = 0; i <= 5; i++)
+                    {
+                        Console.WriteLine(displayWrite(tInizio));
+                        if (pTastoUP == 1)
+                        {
+                            tTime = tTime + 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (pTastoDOWN == 1)
+                        {
+                            tTime = tTime - 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (tORA > 2400 || tORA <= 0)
+                        {
+                            tORA = 0;
+                            Console.WriteLine(displayWrite("ER 1"));
+                        }
+                        else
+                        {
+                            MAR[i] = tORA;
+                        }
+                    }
+                }
+            }
+        }
+        if (pTastoSW == 3)
+        {
+            Console.WriteLine(displayWrite("MER"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    for (i = 0; i <= 5; i++)
+                    {
+                        Console.WriteLine(displayWrite(tInizio));
+                        if (pTastoUP == 1)
+                        {
+                            tTime = tTime + 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (pTastoDOWN == 1)
+                        {
+                            tTime = tTime - 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (tORA > 2400 || tORA <= 0)
+                        {
+                            tORA = 0;
+                            Console.WriteLine(displayWrite("ER 1"));
+                        }
+                        else
+                        {
+                            MER[i] = tORA;
+                        }
+                    }
+                }
+            }
+        }
+        if (pTastoSW == 4)
+        {
+            Console.WriteLine(displayWrite("GIO"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    for (i = 0; i <= 5; i++)
+                    {
+                        Console.WriteLine(displayWrite(tInizio));
+                        if (pTastoUP == 1)
+                        {
+                            tTime = tTime + 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (pTastoDOWN == 1)
+                        {
+                            tTime = tTime - 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (tORA > 2400 || tORA <= 0)
+                        {
+                            tORA = 0;
+                            Console.WriteLine(displayWrite("ER 1"));
+                        }
+                        else
+                        {
+                            GIO[i] = tORA;
+                        }
+                    }
+                }
+            }
+        }
+        if (pTastoSW == 5)
+        {
+            Console.WriteLine(displayWrite("VEN"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    for (i = 0; i <= 5; i++)
+                    {
+                        Console.WriteLine(displayWrite(tInizio));
+                        if (pTastoUP == 1)
+                        {
+                            tTime = tTime + 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (pTastoDOWN == 1)
+                        {
+                            tTime = tTime - 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (tORA > 2400 || tORA <= 0)
+                        {
+                            tORA = 0;
+                            Console.WriteLine(displayWrite("ER 1"));
+                        }
+                        else
+                        {
+                            VEN[i] = tORA;
+                        }
+                    }
+                }
+            }
+        }
+        if (pTastoSW == 6)
+        {
+            Console.WriteLine(displayWrite("SAB"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    for (i = 0; i <= 5; i++)
+                    {
+                        Console.WriteLine(displayWrite(tInizio));
+                        if (pTastoUP == 1)
+                        {
+                            tTime = tTime + 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (pTastoDOWN == 1)
+                        {
+                            tTime = tTime - 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (tORA > 2400 || tORA <= 0)
+                        {
+                            tORA = 0;
+                            Console.WriteLine(displayWrite("ER 1"));
+                        }
+                        else
+                        {
+                            SAB[i] = tORA;
+                        }
+                    }
+                }
+            }
+        }
+        if (pTastoSW == 7)
+        {
+            Console.WriteLine(displayWrite("DOM"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    for (i = 0; i <= 5; i++)
+                    {
+                        Console.WriteLine(displayWrite(tInizio));
+                        if (pTastoUP == 1)
+                        {
+                            tTime = tTime + 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (pTastoDOWN == 1)
+                        {
+                            tTime = tTime - 1;
+                            tORA = tInizio + tTime;
+                            Console.WriteLine(displayWrite(tORA));
+                        }
+                        if (tORA > 2400 || tORA <= 0)
+                        {
+                            tORA = 0;
+                            Console.WriteLine(displayWrite("ER 1"));
+                        }
+                        else
+                        {
+                            DOM[i] = tORA;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public static void SetTimeAreeON()
+    {
+        double tInizio;
+        tInizio = 0;
+        int tConta;
+        tConta = 0;
+        if (pTastoSW == 1)
+        {
+            Console.WriteLine(displayWrite("A 1"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    if (pTastoUP == 1)
+                    {
+                        tConta = tConta + 1;
+                        Console.WriteLine(displayWrite(tConta));
+                    }
+                    if (pTastoDOWN == 1)
+                    {
+                        tConta = tConta - 1;
+                        Console.WriteLine(displayWrite(tConta));
+                    }
+                }
+                if (tConta > 60 || tConta <= 0)
+                {
+                    tAreeMINUTI[1] = 0;
+                    Console.WriteLine(displayWrite("ER A1"));
+                }
+                else
+                {
+                    tAreeMINUTI[1] = tInizio + tConta;
+                    Console.WriteLine(displayWrite(tAreeMINUTI[1]));
+                }
+            }
+        }
+        tConta = 0;
+        if (pTastoSW == 2)
+        {
+            Console.WriteLine(displayWrite("A 2"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    if (pTastoUP == 1)
+                    {
+                        tConta = tConta + 1;
+                        Console.WriteLine(displayWrite(tConta));
+                    }
+                    if (pTastoDOWN == 1)
+                    {
+                        tConta = tConta - 1;
+                        Console.WriteLine(displayWrite(tConta));
+                    }
+                }
+                if (tConta > 60 || tConta <= 0)
+                {
+                    tAreeMINUTI[2] = 0;
+                    Console.WriteLine(displayWrite("ER A2"));
+                }
+                else
+                {
+                    tAreeMINUTI[2] = tInizio + tConta;
+                    Console.WriteLine(displayWrite(tAreeMINUTI[2]));
+                }
+            }
+        }
+        tConta = 0;
+        if (pTastoSW == 3)
+        {
+            Console.WriteLine(displayWrite("A 3"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    if (pTastoUP == 1)
+                    {
+                        tConta = tConta + 1;
+                        Console.WriteLine(displayWrite(tConta));
+                    }
+                    if (pTastoDOWN == 1)
+                    {
+                        tConta = tConta - 1;
+                        Console.WriteLine(displayWrite(tConta));
+                    }
+                }
+                if (tConta > 60 || tConta <= 0)
+                {
+                    tAreeMINUTI[3] = 0;
+                    Console.WriteLine(displayWrite("ER A3"));
+                }
+                else
+                {
+                    tAreeMINUTI[3] = tInizio + tConta;
+                    Console.WriteLine(displayWrite(tAreeMINUTI[3]));
+                }
+            }
+        }
+        tConta = 0;
+        if (pTastoSW == 4)
+        {
+            Console.WriteLine(displayWrite("A 4"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    if (pTastoUP == 1)
+                    {
+                        tConta = tConta + 1;
+                        Console.WriteLine(displayWrite(tConta));
+                    }
+                    if (pTastoDOWN == 1)
+                    {
+                        tConta = tConta - 1;
+                        Console.WriteLine(displayWrite(tConta));
+                    }
+                }
+                if (tConta > 60 || tConta <= 0)
+                {
+                    tAreeMINUTI[4] = 0;
+                    Console.WriteLine(displayWrite("ER A4"));
+                }
+                else
+                {
+                    tAreeMINUTI[4] = tInizio + tConta;
+                    Console.WriteLine(displayWrite(tAreeMINUTI[4]));
+                }
+            }
+        }
+        tConta = 0;
+        if (pTastoSW == 5)
+        {
+            Console.WriteLine(displayWrite("A 5"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    if (pTastoUP == 1)
+                    {
+                        tConta = tConta + 1;
+                        Console.WriteLine(displayWrite(tConta));
+                    }
+                    if (pTastoDOWN == 1)
+                    {
+                        tConta = tConta - 1;
+                        Console.WriteLine(displayWrite(tConta));
+                    }
+                }
+                if (tConta > 60 || tConta <= 0)
+                {
+                    tAreeMINUTI[5] = 0;
+                    Console.WriteLine(displayWrite("ER A5"));
+                }
+                else
+                {
+                    tAreeMINUTI[5] = tInizio + tConta;
+                    Console.WriteLine(displayWrite(tAreeMINUTI[5]));
+                }
+            }
+        }
+    }
+    
+    public static void SetTimeDispRTC()
+    {
+        double tInizio;
+        tInizio = 1200;
+        double tTime;
+        tTime = 0;
+        Console.WriteLine(displayWrite("HOUP"));
+        if (pTastoSET == 1)
+        {
+            while (pTastoSET == 0)
+            {
+                Console.WriteLine(displayWrite(tInizio));
+                if (pTastoUP == 1)
+                {
+                    tTime = tTime + 1;
+                    tORA = tInizio + tTime;
+                    Console.WriteLine(displayWrite(tORA));
+                }
+                if (pTastoDOWN == 1)
+                {
+                    tTime = tTime - 1;
+                    tORA = tInizio + tTime;
+                    Console.WriteLine(displayWrite(tORA));
+                }
+            }
+            if (tORA > 2400 || tORA <= 0)
+            {
+                tORA = 0;
+                Console.WriteLine(displayWrite("ER 1"));
+            }
+            else
+            {
+                oraRTC = tORA;
+            }
+        }
+        if (pTastoSW == 1)
+        {
+            Console.WriteLine(displayWrite("dAY"));
+            if (pTastoSET == 1)
+            {
+                while (pTastoSET == 0)
+                {
+                    if (pTastoSW == 1)
+                    {
+                        Console.WriteLine(displayWrite("LUN"));
+                        tGiorno = LUN;
+                    }
+                    if (pTastoSW == 2)
+                    {
+                        Console.WriteLine(displayWrite("MAR"));
+                        tGiorno = MAR;
+                    }
+                    if (pTastoSW == 3)
+                    {
+                        Console.WriteLine(displayWrite("MER"));
+                        tGiorno = MER;
+                    }
+                    if (pTastoSW == 4)
+                    {
+                        Console.WriteLine(displayWrite("GIO"));
+                        tGiorno = GIO;
+                    }
+                    if (pTastoSW == 5)
+                    {
+                        Console.WriteLine(displayWrite("VEN"));
+                        tGiorno = VEN;
+                    }
+                    if (pTastoSW == 6)
+                    {
+                        Console.WriteLine(displayWrite("SAB"));
+                        tGiorno = SAB;
+                    }
+                    if (pTastoSW == 7)
+                    {
+                        Console.WriteLine(displayWrite("DOM"));
+                        tGiorno = DOM;
+                    }
+                }
+                giornoRTC = tGiorno;
+            }
+        }
+    }
+    
+    public static void Setup()
+    {
+        int inizRTC;
+        int inizDISP;
+        SetTimeDispRTC();
+        SetTimeAreeON();
+        SetTimeAree();
+    }
+}

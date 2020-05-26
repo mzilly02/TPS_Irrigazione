@@ -4,9 +4,9 @@
         <attribute name="name" value="Sistema_Irrigazione"/>
         <attribute name="authors" value="Ziliani_Mattia"/>
         <attribute name="about" value="Flowchart del programma Arduino di controllo di un sistema di irrigazione a 5 aree con orologio RTC e sensori di umidita'"/>
-        <attribute name="saved" value="2020-05-26 11:58:09 "/>
+        <attribute name="saved" value="2020-05-26 11:23:13 "/>
         <attribute name="created" value="bWF0dGk7TUFUVElBLUFNRFBDOzIwMjAtMDUtMjI7IjA1OjMyOjAyICI7MjU3Mw=="/>
-        <attribute name="edited" value="bWF0dGk7TUFUVElBLUFNRFBDOzIwMjAtMDUtMjY7IjExOjU4OjA5ICI7Mjc7Mjc1Mw=="/>
+        <attribute name="edited" value="bWF0dGk7TUFUVElBLUFNRFBDOzIwMjAtMDUtMjY7IjExOjIzOjEzICI7NjQ7Mjc0MQ=="/>
     </attributes>
     <function name="Main" type="None" variable="">
         <parameters/>
@@ -14,7 +14,10 @@
             <declare name="librerieUsate" type="Integer" array="False" size=""/>
             <declare name="pSensori" type="Integer" array="True" size="5"/>
             <declare name="pValvole" type="Integer" array="True" size="5"/>
-            <declare name="pTastoSET, UP, DOWN, SW" type="Integer" array="False" size=""/>
+            <declare name="sVCC" type="Integer" array="False" size=""/>
+            <declare name="pTastoSET, DOWN, UP, SW" type="Integer" array="False" size=""/>
+            <declare name="tGiorno" type="String" array="False" size=""/>
+            <declare name="tORA" type="Real" array="False" size=""/>
             <declare name="tAreeMINUTI" type="Real" array="True" size="5"/>
             <declare name="LUN" type="Integer" array="True" size="5"/>
             <declare name="MAR" type="Integer" array="True" size="5"/>
@@ -33,24 +36,39 @@
         <body>
             <declare name="tDisp" type="Integer" array="False" size=""/>
             <assign variable="tDisp" expression="0"/>
-            <output expression="displayWrite(HOME)" newline="True"/>
-            <if expression="tDisp - millis() == 10000">
+            <output expression="displayWrite(&quot;HOME&quot;)" newline="True"/>
+            <if expression="millis() - TDisp &lt;= 10000">
                 <then>
                     <if expression="pTastoSW == 1">
                         <then>
-                            <call expression="SetTimeAreeON"/>
+                            <if expression="pTastoSET == 1">
+                                <then>
+                                    <call expression="SetTimeAreeON"/>
+                                </then>
+                                <else/>
+                            </if>
                         </then>
                         <else/>
                     </if>
                     <if expression="pTastoSW == 2">
                         <then>
-                            <call expression="SetTimeAree"/>
+                            <if expression="pTastoSET == 1">
+                                <then>
+                                    <call expression="SetTimeAree"/>
+                                </then>
+                                <else/>
+                            </if>
                         </then>
                         <else/>
                     </if>
                     <if expression="pTastoSW == 3">
                         <then>
-                            <call expression="SetTimeDispRTC"/>
+                            <if expression="pTastoSET == 1">
+                                <then>
+                                    <call expression="SetTimeDispRTC"/>
+                                </then>
+                                <else/>
+                            </if>
                         </then>
                         <else/>
                     </if>
@@ -64,19 +82,23 @@
         <body>
             <assign variable="tGiorno" expression="giornoRTC()"/>
             <assign variable="tORA" expression="oraRTC()"/>
+            <output expression="displayWrite(tORA)" newline="True"/>
             <if expression="tGiorno == LUN">
                 <then>
                     <for variable="i" start="0" end="5" direction="inc" step="1">
                         <if expression="tORA == LUN[i]">
                             <then>
+                                <output expression="Pinmode(sVCC, HIGH)" newline="True"/>
                                 <if expression="pSensori[i] == 1">
                                     <then>
                                         <output expression="Pinmode(pValvole[i], HIGH)" newline="True"/>
+                                        <output expression="displayWrite(A [i])" newline="True"/>
                                         <assign variable="AspettaTempo" expression="tAreeMINUTI[i]"/>
                                         <output expression="Pinmode(pValvole[i], LOW)" newline="True"/>
                                     </then>
                                     <else/>
                                 </if>
+                                <output expression="Pinmode(sVCC, LOW)" newline="True"/>
                             </then>
                             <else/>
                         </if>
@@ -89,14 +111,17 @@
                     <for variable="i" start="0" end="5" direction="inc" step="1">
                         <if expression="tORA == MAR[i]">
                             <then>
+                                <output expression="Pinmode(sVCC, HIGH)" newline="True"/>
                                 <if expression="pSensori[i] == 1">
                                     <then>
                                         <output expression="Pinmode(pValvole[i], HIGH)" newline="True"/>
+                                        <output expression="displayWrite(A [i])" newline="True"/>
                                         <assign variable="AspettaTempo" expression="tAreeMINUTI[i]"/>
                                         <output expression="Pinmode(pValvole[i], LOW)" newline="True"/>
                                     </then>
                                     <else/>
                                 </if>
+                                <output expression="Pinmode(sVCC, LOW)" newline="True"/>
                             </then>
                             <else/>
                         </if>
@@ -109,14 +134,17 @@
                     <for variable="i" start="0" end="5" direction="inc" step="1">
                         <if expression="tORA == MER[i]">
                             <then>
+                                <output expression="Pinmode(sVCC, HIGH)" newline="True"/>
                                 <if expression="pSensori[i] == 1">
                                     <then>
                                         <output expression="Pinmode(pValvole[i], HIGH)" newline="True"/>
+                                        <output expression="displayWrite(A [i])" newline="True"/>
                                         <assign variable="AspettaTempo" expression="tAreeMINUTI[i]"/>
                                         <output expression="Pinmode(pValvole[i], LOW)" newline="True"/>
                                     </then>
                                     <else/>
                                 </if>
+                                <output expression="Pinmode(sVCC, LOW)" newline="True"/>
                             </then>
                             <else/>
                         </if>
@@ -129,14 +157,17 @@
                     <for variable="i" start="0" end="5" direction="inc" step="1">
                         <if expression="tORA == GIO[i]">
                             <then>
+                                <output expression="Pinmode(sVCC, HIGH)" newline="True"/>
                                 <if expression="pSensori[i] == 1">
                                     <then>
                                         <output expression="Pinmode(pValvole[i], HIGH)" newline="True"/>
+                                        <output expression="displayWrite(A [i])" newline="True"/>
                                         <assign variable="AspettaTempo" expression="tAreeMINUTI[i]"/>
                                         <output expression="Pinmode(pValvole[i], LOW)" newline="True"/>
                                     </then>
                                     <else/>
                                 </if>
+                                <output expression="Pinmode(sVCC, LOW)" newline="True"/>
                             </then>
                             <else/>
                         </if>
@@ -149,14 +180,17 @@
                     <for variable="i" start="0" end="5" direction="inc" step="1">
                         <if expression="tORA == VEN[i]">
                             <then>
+                                <output expression="Pinmode(sVCC, HIGH)" newline="True"/>
                                 <if expression="pSensori[i] == 1">
                                     <then>
                                         <output expression="Pinmode(pValvole[i], HIGH)" newline="True"/>
+                                        <output expression="displayWrite(A [i])" newline="True"/>
                                         <assign variable="AspettaTempo" expression="tAreeMINUTI[i]"/>
                                         <output expression="Pinmode(pValvole[i], LOW)" newline="True"/>
                                     </then>
                                     <else/>
                                 </if>
+                                <output expression="Pinmode(sVCC, LOW)" newline="True"/>
                             </then>
                             <else/>
                         </if>
@@ -169,14 +203,17 @@
                     <for variable="i" start="0" end="5" direction="inc" step="1">
                         <if expression="tORA == SAB[i]">
                             <then>
+                                <output expression="Pinmode(sVCC, HIGH)" newline="True"/>
                                 <if expression="pSensori[i] == 1">
                                     <then>
                                         <output expression="Pinmode(pValvole[i], HIGH)" newline="True"/>
+                                        <output expression="displayWrite(A [i])" newline="True"/>
                                         <assign variable="AspettaTempo" expression="tAreeMINUTI[i]"/>
                                         <output expression="Pinmode(pValvole[i], LOW)" newline="True"/>
                                     </then>
                                     <else/>
                                 </if>
+                                <output expression="Pinmode(sVCC, LOW)" newline="True"/>
                             </then>
                             <else/>
                         </if>
@@ -189,14 +226,17 @@
                     <for variable="i" start="0" end="5" direction="inc" step="1">
                         <if expression="tORA == DOM[i]">
                             <then>
+                                <output expression="Pinmode(sVCC, HIGH)" newline="True"/>
                                 <if expression="pSensori[i] == 1">
                                     <then>
                                         <output expression="Pinmode(pValvole[i], HIGH)" newline="True"/>
+                                        <output expression="displayWrite(A [i])" newline="True"/>
                                         <assign variable="AspettaTempo" expression="tAreeMINUTI[i]"/>
                                         <output expression="Pinmode(pValvole[i], LOW)" newline="True"/>
                                     </then>
                                     <else/>
                                 </if>
+                                <output expression="Pinmode(sVCC, LOW)" newline="True"/>
                             </then>
                             <else/>
                         </if>
@@ -208,20 +248,46 @@
     </function>
     <function name="SetTimeAree" type="None" variable="">
         <parameters/>
-        <body/>
-    </function>
-    <function name="SetTimeAreeON" type="None" variable="">
-        <parameters/>
         <body>
             <declare name="tInizio" type="Real" array="False" size=""/>
             <assign variable="tInizio" expression="1200"/>
-            <declare name="tConta" type="Integer" array="False" size=""/>
+            <declare name="tTime" type="Real" array="False" size=""/>
+            <assign variable="tTime" expression="0"/>
+            <declare name="tAree" type="Real" array="False" size=""/>
             <if expression="pTastoSW == 1">
                 <then>
+                    <output expression="displayWrite(&quot;LUN&quot;)" newline="True"/>
                     <if expression="pTastoSET == 1">
                         <then>
                             <while expression="pTastoSET == 0">
-                                <assign variable="tAreeMINUTI[1]" expression="tInizio+tConta"/>
+                                <for variable="i" start="0" end="5" direction="inc" step="1">
+                                    <output expression="displayWrite(tInizio)" newline="True"/>
+                                    <if expression="pTastoUP ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime+1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="pTastoDOWN ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime-1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="tORA &gt; 2400 || tORA &lt;=0">
+                                        <then>
+                                            <assign variable="tORA" expression="0"/>
+                                            <output expression="displayWrite(&quot;ER 1&quot;)" newline="True"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="LUN[i]" expression="tORA"/>
+                                        </else>
+                                    </if>
+                                </for>
                             </while>
                         </then>
                         <else/>
@@ -229,12 +295,40 @@
                 </then>
                 <else/>
             </if>
-            <if expression="pTastoSW == 2">
+            <if expression="pTastoSW ==2">
                 <then>
+                    <output expression="displayWrite(&quot;MAR&quot;)" newline="True"/>
                     <if expression="pTastoSET == 1">
                         <then>
                             <while expression="pTastoSET == 0">
-                                <assign variable="tAreeMINUTI[2]" expression="tInizio+tConta"/>
+                                <for variable="i" start="0" end="5" direction="inc" step="1">
+                                    <output expression="displayWrite(tInizio)" newline="True"/>
+                                    <if expression="pTastoUP ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime+1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="pTastoDOWN ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime-1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="tORA &gt; 2400 || tORA &lt;=0">
+                                        <then>
+                                            <assign variable="tORA" expression="0"/>
+                                            <output expression="displayWrite(&quot;ER 1&quot;)" newline="True"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="MAR[i]" expression="tORA"/>
+                                        </else>
+                                    </if>
+                                </for>
                             </while>
                         </then>
                         <else/>
@@ -244,10 +338,38 @@
             </if>
             <if expression="pTastoSW == 3">
                 <then>
+                    <output expression="displayWrite(&quot;MER&quot;)" newline="True"/>
                     <if expression="pTastoSET == 1">
                         <then>
                             <while expression="pTastoSET == 0">
-                                <assign variable="tAreeMINUTI[3]" expression="tInizio+tConta"/>
+                                <for variable="i" start="0" end="5" direction="inc" step="1">
+                                    <output expression="displayWrite(tInizio)" newline="True"/>
+                                    <if expression="pTastoUP ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime+1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="pTastoDOWN ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime-1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="tORA &gt; 2400 || tORA &lt;=0">
+                                        <then>
+                                            <assign variable="tORA" expression="0"/>
+                                            <output expression="displayWrite(&quot;ER 1&quot;)" newline="True"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="MER[i]" expression="tORA"/>
+                                        </else>
+                                    </if>
+                                </for>
                             </while>
                         </then>
                         <else/>
@@ -257,10 +379,38 @@
             </if>
             <if expression="pTastoSW == 4">
                 <then>
+                    <output expression="displayWrite(&quot;GIO&quot;)" newline="True"/>
                     <if expression="pTastoSET == 1">
                         <then>
                             <while expression="pTastoSET == 0">
-                                <assign variable="tAreeMINUTI[4]" expression="tInizio+tConta"/>
+                                <for variable="i" start="0" end="5" direction="inc" step="1">
+                                    <output expression="displayWrite(tInizio)" newline="True"/>
+                                    <if expression="pTastoUP ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime+1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="pTastoDOWN ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime-1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="tORA &gt; 2400 || tORA &lt;=0">
+                                        <then>
+                                            <assign variable="tORA" expression="0"/>
+                                            <output expression="displayWrite(&quot;ER 1&quot;)" newline="True"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="GIO[i]" expression="tORA"/>
+                                        </else>
+                                    </if>
+                                </for>
                             </while>
                         </then>
                         <else/>
@@ -270,11 +420,319 @@
             </if>
             <if expression="pTastoSW == 5">
                 <then>
+                    <output expression="displayWrite(&quot;VEN&quot;)" newline="True"/>
                     <if expression="pTastoSET == 1">
                         <then>
                             <while expression="pTastoSET == 0">
-                                <assign variable="tAreeMINUTI[5]" expression="tInizio+tConta"/>
+                                <for variable="i" start="0" end="5" direction="inc" step="1">
+                                    <output expression="displayWrite(tInizio)" newline="True"/>
+                                    <if expression="pTastoUP ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime+1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="pTastoDOWN ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime-1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="tORA &gt; 2400 || tORA &lt;=0">
+                                        <then>
+                                            <assign variable="tORA" expression="0"/>
+                                            <output expression="displayWrite(&quot;ER 1&quot;)" newline="True"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="VEN[i]" expression="tORA"/>
+                                        </else>
+                                    </if>
+                                </for>
                             </while>
+                        </then>
+                        <else/>
+                    </if>
+                </then>
+                <else/>
+            </if>
+            <if expression="pTastoSW == 6">
+                <then>
+                    <output expression="displayWrite(&quot;SAB&quot;)" newline="True"/>
+                    <if expression="pTastoSET == 1">
+                        <then>
+                            <while expression="pTastoSET == 0">
+                                <for variable="i" start="0" end="5" direction="inc" step="1">
+                                    <output expression="displayWrite(tInizio)" newline="True"/>
+                                    <if expression="pTastoUP ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime+1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="pTastoDOWN ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime-1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="tORA &gt; 2400 || tORA &lt;=0">
+                                        <then>
+                                            <assign variable="tORA" expression="0"/>
+                                            <output expression="displayWrite(&quot;ER 1&quot;)" newline="True"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="SAB[i]" expression="tORA"/>
+                                        </else>
+                                    </if>
+                                </for>
+                            </while>
+                        </then>
+                        <else/>
+                    </if>
+                </then>
+                <else/>
+            </if>
+            <if expression="pTastoSW == 7">
+                <then>
+                    <output expression="displayWrite(&quot;DOM&quot;)" newline="True"/>
+                    <if expression="pTastoSET == 1">
+                        <then>
+                            <while expression="pTastoSET == 0">
+                                <for variable="i" start="0" end="5" direction="inc" step="1">
+                                    <output expression="displayWrite(tInizio)" newline="True"/>
+                                    <if expression="pTastoUP ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime+1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="pTastoDOWN ==1">
+                                        <then>
+                                            <assign variable="tTime" expression="tTime-1"/>
+                                            <assign variable="tORA" expression="tInizio + tTime"/>
+                                            <output expression="displayWrite(tORA)" newline="True"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                    <if expression="tORA &gt; 2400 || tORA &lt;=0">
+                                        <then>
+                                            <assign variable="tORA" expression="0"/>
+                                            <output expression="displayWrite(&quot;ER 1&quot;)" newline="True"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="DOM[i]" expression="tORA"/>
+                                        </else>
+                                    </if>
+                                </for>
+                            </while>
+                        </then>
+                        <else/>
+                    </if>
+                </then>
+                <else/>
+            </if>
+        </body>
+    </function>
+    <function name="SetTimeAreeON" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="tInizio" type="Real" array="False" size=""/>
+            <assign variable="tInizio" expression="00"/>
+            <declare name="tConta" type="Integer" array="False" size=""/>
+            <assign variable="tConta" expression="0"/>
+            <if expression="pTastoSW == 1">
+                <then>
+                    <output expression="displayWrite(&quot;A 1&quot;)" newline="True"/>
+                    <if expression="pTastoSET == 1">
+                        <then>
+                            <while expression="pTastoSET == 0">
+                                <if expression="pTastoUP ==1">
+                                    <then>
+                                        <assign variable="tConta" expression="tConta+1"/>
+                                        <output expression="displayWrite(tConta)" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoDOWN ==1">
+                                    <then>
+                                        <assign variable="tConta" expression="tConta-1"/>
+                                        <output expression="displayWrite(tConta)" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </while>
+                            <if expression="tConta &gt; 60 || tConta &lt;=0">
+                                <then>
+                                    <assign variable="tAreeMINUTI[1]" expression="0"/>
+                                    <output expression="displayWrite(&quot;ER A1&quot;)" newline="True"/>
+                                </then>
+                                <else>
+                                    <assign variable="tAreeMINUTI[1]" expression="tInizio+tConta"/>
+                                    <output expression="displayWrite(tAreeMINUTI[1])" newline="True"/>
+                                </else>
+                            </if>
+                        </then>
+                        <else/>
+                    </if>
+                </then>
+                <else/>
+            </if>
+            <assign variable="tConta" expression="0"/>
+            <if expression="pTastoSW == 2">
+                <then>
+                    <output expression="displayWrite(&quot;A 2&quot;)" newline="True"/>
+                    <if expression="pTastoSET == 1">
+                        <then>
+                            <while expression="pTastoSET == 0">
+                                <if expression="pTastoUP ==1">
+                                    <then>
+                                        <assign variable="tConta" expression="tConta+1"/>
+                                        <output expression="displayWrite(tConta)" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoDOWN ==1">
+                                    <then>
+                                        <assign variable="tConta" expression="tConta-1"/>
+                                        <output expression="displayWrite(tConta)" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </while>
+                            <if expression="tConta &gt; 60 || tConta &lt;=0">
+                                <then>
+                                    <assign variable="tAreeMINUTI[2]" expression="0"/>
+                                    <output expression="displayWrite(&quot;ER A2&quot;)" newline="True"/>
+                                </then>
+                                <else>
+                                    <assign variable="tAreeMINUTI[2]" expression="tInizio+tConta"/>
+                                    <output expression="displayWrite(tAreeMINUTI[2])" newline="True"/>
+                                </else>
+                            </if>
+                        </then>
+                        <else/>
+                    </if>
+                </then>
+                <else/>
+            </if>
+            <assign variable="tConta" expression="0"/>
+            <if expression="pTastoSW == 3">
+                <then>
+                    <output expression="displayWrite(&quot;A 3&quot;)" newline="True"/>
+                    <if expression="pTastoSET == 1">
+                        <then>
+                            <while expression="pTastoSET == 0">
+                                <if expression="pTastoUP ==1">
+                                    <then>
+                                        <assign variable="tConta" expression="tConta+1"/>
+                                        <output expression="displayWrite(tConta)" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoDOWN ==1">
+                                    <then>
+                                        <assign variable="tConta" expression="tConta-1"/>
+                                        <output expression="displayWrite(tConta)" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </while>
+                            <if expression="tConta &gt; 60 || tConta &lt;=0">
+                                <then>
+                                    <assign variable="tAreeMINUTI[3]" expression="0"/>
+                                    <output expression="displayWrite(&quot;ER A3&quot;)" newline="True"/>
+                                </then>
+                                <else>
+                                    <assign variable="tAreeMINUTI[3]" expression="tInizio+tConta"/>
+                                    <output expression="displayWrite(tAreeMINUTI[3])" newline="True"/>
+                                </else>
+                            </if>
+                        </then>
+                        <else/>
+                    </if>
+                </then>
+                <else/>
+            </if>
+            <assign variable="tConta" expression="0"/>
+            <if expression="pTastoSW == 4">
+                <then>
+                    <output expression="displayWrite(&quot;A 4&quot;)" newline="True"/>
+                    <if expression="pTastoSET == 1">
+                        <then>
+                            <while expression="pTastoSET == 0">
+                                <if expression="pTastoUP ==1">
+                                    <then>
+                                        <assign variable="tConta" expression="tConta+1"/>
+                                        <output expression="displayWrite(tConta)" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoDOWN ==1">
+                                    <then>
+                                        <assign variable="tConta" expression="tConta-1"/>
+                                        <output expression="displayWrite(tConta)" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </while>
+                            <if expression="tConta &gt; 60 || tConta &lt;=0">
+                                <then>
+                                    <assign variable="tAreeMINUTI[4]" expression="0"/>
+                                    <output expression="displayWrite(&quot;ER A4&quot;)" newline="True"/>
+                                </then>
+                                <else>
+                                    <assign variable="tAreeMINUTI[4]" expression="tInizio+tConta"/>
+                                    <output expression="displayWrite(tAreeMINUTI[4])" newline="True"/>
+                                </else>
+                            </if>
+                        </then>
+                        <else/>
+                    </if>
+                </then>
+                <else/>
+            </if>
+            <assign variable="tConta" expression="0"/>
+            <if expression="pTastoSW == 5">
+                <then>
+                    <output expression="displayWrite(&quot;A 5&quot;)" newline="True"/>
+                    <if expression="pTastoSET == 1">
+                        <then>
+                            <while expression="pTastoSET == 0">
+                                <if expression="pTastoUP ==1">
+                                    <then>
+                                        <assign variable="tConta" expression="tConta+1"/>
+                                        <output expression="displayWrite(tConta)" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoDOWN ==1">
+                                    <then>
+                                        <assign variable="tConta" expression="tConta-1"/>
+                                        <output expression="displayWrite(tConta)" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </while>
+                            <if expression="tConta &gt; 60 || tConta &lt;=0">
+                                <then>
+                                    <assign variable="tAreeMINUTI[5]" expression="0"/>
+                                    <output expression="displayWrite(&quot;ER A5&quot;)" newline="True"/>
+                                </then>
+                                <else>
+                                    <assign variable="tAreeMINUTI[5]" expression="tInizio+tConta"/>
+                                    <output expression="displayWrite(tAreeMINUTI[5])" newline="True"/>
+                                </else>
+                            </if>
                         </then>
                         <else/>
                     </if>
@@ -287,9 +745,104 @@
         <parameters/>
         <body>
             <declare name="tInizio" type="Real" array="False" size=""/>
+            <assign variable="tInizio" expression="1200"/>
             <declare name="tTime" type="Real" array="False" size=""/>
-            <if expression="ContaPtasti == 0 &amp;&amp; pTastoSET == 1">
-                <then/>
+            <assign variable="tTime" expression="0"/>
+            <output expression="displayWrite(&quot;HOUP&quot;)" newline="True"/>
+            <if expression="pTastoSET == 1">
+                <then>
+                    <while expression="pTastoSET ==0">
+                        <output expression="displayWrite(tInizio)" newline="True"/>
+                        <if expression="pTastoUP ==1">
+                            <then>
+                                <assign variable="tTime" expression="tTime+1"/>
+                                <assign variable="tORA" expression="tInizio + tTime"/>
+                                <output expression="displayWrite(tORA)" newline="True"/>
+                            </then>
+                            <else/>
+                        </if>
+                        <if expression="pTastoDOWN ==1">
+                            <then>
+                                <assign variable="tTime" expression="tTime-1"/>
+                                <assign variable="tORA" expression="tInizio + tTime"/>
+                                <output expression="displayWrite(tORA)" newline="True"/>
+                            </then>
+                            <else/>
+                        </if>
+                    </while>
+                    <if expression="tORA &gt; 2400 || tORA &lt;=0">
+                        <then>
+                            <assign variable="tORA" expression="0"/>
+                            <output expression="displayWrite(&quot;ER 1&quot;)" newline="True"/>
+                        </then>
+                        <else>
+                            <assign variable="oraRTC" expression="tORA"/>
+                        </else>
+                    </if>
+                </then>
+                <else/>
+            </if>
+            <if expression="pTastoSW == 1">
+                <then>
+                    <output expression="displayWrite(&quot;dAY&quot;)" newline="True"/>
+                    <if expression="pTastoSET == 1">
+                        <then>
+                            <while expression="pTastoSET ==0">
+                                <if expression="pTastoSW == 1">
+                                    <then>
+                                        <output expression="displayWrite(&quot;LUN&quot;)" newline="True"/>
+                                        <assign variable="tGiorno" expression="LUN"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoSW == 2">
+                                    <then>
+                                        <output expression="displayWrite(&quot;MAR&quot;)" newline="True"/>
+                                        <assign variable="tGiorno" expression="MAR"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoSW == 3">
+                                    <then>
+                                        <output expression="displayWrite(&quot;MER&quot;)" newline="True"/>
+                                        <assign variable="tGiorno" expression="MER"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoSW == 4">
+                                    <then>
+                                        <output expression="displayWrite(&quot;GIO&quot;)" newline="True"/>
+                                        <assign variable="tGiorno" expression="GIO"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoSW == 5">
+                                    <then>
+                                        <output expression="displayWrite(&quot;VEN&quot;)" newline="True"/>
+                                        <assign variable="tGiorno" expression="VEN"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoSW == 6">
+                                    <then>
+                                        <output expression="displayWrite(&quot;SAB&quot;)" newline="True"/>
+                                        <assign variable="tGiorno" expression="SAB"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <if expression="pTastoSW == 7">
+                                    <then>
+                                        <output expression="displayWrite(&quot;DOM&quot;)" newline="True"/>
+                                        <assign variable="tGiorno" expression="DOM"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </while>
+                            <assign variable="giornoRTC" expression="tGiorno"/>
+                        </then>
+                        <else/>
+                    </if>
+                </then>
                 <else/>
             </if>
         </body>
@@ -299,8 +852,6 @@
         <body>
             <declare name="InizRTC" type="Integer" array="False" size=""/>
             <declare name="InizDISP" type="Integer" array="False" size=""/>
-            <declare name="tGiorno" type="String" array="False" size=""/>
-            <declare name="tORA" type="Real" array="False" size=""/>
             <call expression="SetTimeDispRTC"/>
             <call expression="SetTimeAreeON"/>
             <call expression="SetTimeAree"/>
