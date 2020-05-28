@@ -1,0 +1,20 @@
+Partlist
+
+Exported from Ziliani-Sistema_Irrigazione.sch at 25/05/2020 19:26
+
+EAGLE Version 9.6.1 Copyright (c) 1988-2020 Autodesk, Inc.
+
+Assembly variant: 
+
+Part     Value               Device              Package         Library         Sheet
+
+CTRL                         L05P                L05P            con-amp-mt      1
+DISP                         L04P                L04P            con-amp-mt      1
+G1       CR2032V             CR2032V             CR2032V         battery         1
+IC1      DS1307              DS1307              DIL08           adafruit        1
+PWR      MKDSN1,5/2-5,08     MKDSN1,5/2-5,08     MKDSN1,5/2-5,08 con-phoenix-508 1
+Q1       32768 Hz            XTAL/S              QS              special         1
+S        MKDSN1,5/7-5,08     MKDSN1,5/7-5,08     MKDSN1,5/7-5,08 con-phoenix-508 1
+U$1      RELAY-1-SRD         RELAY-1-SRD         RELAY-1-SRD     diy-modules-PCB 1
+U$2      RELAY-4-SRD         RELAY-4-SRD         RELAY-4-SRD     diy-modules-PCB 1
+U1       ARDUINOR3-DIMENSION ARDUINOR3-DIMENSION ARDUINOR3       adafruit-MOD    1
