@@ -8,7 +8,7 @@ public class MyProgram
         int[] pSensori = new int[5];
         int[] pValvole = new int[5];
         int sVCC;
-        int pTastoSET, uP, dOWN, sW;
+        int pTastoSET, dOWN, uP, sW;
         string tGiorno;
         double tORA;
         double[] tAreeMINUTI = new double[5];
@@ -19,6 +19,7 @@ public class MyProgram
         int[] vEN = new int[5];
         int[] sAB = new int[5];
         int[] dOM = new int[5];
+        
         Interrupt = DisplayHomepTastoSET;
         Setup();
         Loop();
@@ -27,6 +28,7 @@ public class MyProgram
     public static void DisplayHome()
     {
         int tDisp;
+        
         tDisp = 0;
         Console.WriteLine(displayWrite("HOME"));
         if (millis() - tDisp <= 10000)
@@ -191,10 +193,13 @@ public class MyProgram
     public static void SetTimeAree()
     {
         double tInizio;
+        
         tInizio = 1200;
         double tTime;
+        
         tTime = 0;
         double tAree;
+        
         if (pTastoSW == 1)
         {
             Console.WriteLine(displayWrite("LUN"));
@@ -445,8 +450,10 @@ public class MyProgram
     public static void SetTimeAreeON()
     {
         double tInizio;
+        
         tInizio = 0;
         int tConta;
+        
         tConta = 0;
         if (pTastoSW == 1)
         {
@@ -607,8 +614,10 @@ public class MyProgram
     public static void SetTimeDispRTC()
     {
         double tInizio;
+        
         tInizio = 1200;
         double tTime;
+        
         tTime = 0;
         Console.WriteLine(displayWrite("HOUP"));
         if (pTastoSET == 1)
@@ -691,6 +700,7 @@ public class MyProgram
     {
         int inizRTC;
         int inizDISP;
+        
         SetTimeDispRTC();
         SetTimeAreeON();
         SetTimeAree();

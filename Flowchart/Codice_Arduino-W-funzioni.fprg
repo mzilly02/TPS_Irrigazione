@@ -4,9 +4,9 @@
         <attribute name="name" value="Sistema_Irrigazione"/>
         <attribute name="authors" value="Ziliani_Mattia"/>
         <attribute name="about" value="Flowchart del programma Arduino di controllo di un sistema di irrigazione a 5 aree con orologio RTC e sensori di umidita'"/>
-        <attribute name="saved" value="2020-05-26 11:23:13 "/>
+        <attribute name="saved" value="2020-05-28 12:36:57 "/>
         <attribute name="created" value="bWF0dGk7TUFUVElBLUFNRFBDOzIwMjAtMDUtMjI7IjA1OjMyOjAyICI7MjU3Mw=="/>
-        <attribute name="edited" value="bWF0dGk7TUFUVElBLUFNRFBDOzIwMjAtMDUtMjY7IjExOjIzOjEzICI7NjQ7Mjc0MQ=="/>
+        <attribute name="edited" value="bWF0dGk7TUFUVElBLUFNRFBDOzIwMjAtMDUtMjg7IjEyOjM2OjU3ICI7Njg7Mjc2MA=="/>
     </attributes>
     <function name="Main" type="None" variable="">
         <parameters/>
